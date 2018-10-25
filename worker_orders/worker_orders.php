@@ -56,10 +56,10 @@
                     <ul class="nav navbar-nav ml-auto">
                         
                       
-                        <li class="nav-item" role="presentation" style="background-color:#1773f3;"><a class="nav-link" href="#" style="color:rgb(253,253,253);">Orders</a></li>
-						<li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color:rgb(254,254,254);">Raw Material</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color:rgb(255,255,255);">Intermediate Items</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color:rgb(254,254,254);">Finished Items</a></li>
+                        <li class="nav-item" role="presentation" style="background-color:#1773f3;"><a class="nav-link" href= "worker_orders.php"="color:rgb(253,253,253);">Orders</a></li>
+						<li class="nav-item" role="presentation"><a class="nav-link" href="../worker_raw_material/worker_raw_material.php" style="color:rgb(254,254,254);">Raw Material</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="../worker_intermediate_items/worker_intermediate_items.php" style="color:rgb(255,255,255);">Intermediate Items</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" href="../worker_finished_items/worker_finished_items.php" style="color:rgb(254,254,254);">Finished Items</a></li>
                     </ul>
             	</div>
 				
