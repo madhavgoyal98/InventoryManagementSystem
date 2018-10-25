@@ -54,7 +54,7 @@
                 
 				<div class="collapse navbar-collapse" id="navcol-1">
                     <ul class="nav navbar-nav ml-auto">
-						<li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color:rgb(254,254,254);"></a>Manage Users</li>
+						<li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color:rgb(254,254,254);">Manage Users</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color:rgb(251,251,252);">Orders</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color:rgb(254,254,254);">Raw Material</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="#" style="color:rgb(255,255,255);">Intermediate Items</a></li>
