@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2018 at 06:25 PM
+-- Generation Time: Oct 26, 2018 at 01:40 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -23,14 +23,38 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `finished_order`
+--
+
+CREATE TABLE `finished_order` (
+  `order_id` int(11) UNSIGNED NOT NULL,
+  `fp_id` int(11) UNSIGNED NOT NULL,
+  `quantity` int(11) NOT NULL COMMENT 'quantity of finished product made for order'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `finished_product`
 --
 
 CREATE TABLE `finished_product` (
-  `fp_id` int(10) UNSIGNED NOT NULL,
+  `fp_id` int(11) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
   `quantity` int(11) NOT NULL,
   `measuring_unit` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `intermediate_finished`
+--
+
+CREATE TABLE `intermediate_finished` (
+  `im_id` int(11) UNSIGNED NOT NULL,
+  `fp_id` int(11) UNSIGNED NOT NULL,
+  `quantity` int(11) NOT NULL COMMENT 'quantity of intermediate used per finished product'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -40,7 +64,7 @@ CREATE TABLE `finished_product` (
 --
 
 CREATE TABLE `intermediate_items` (
-  `im_id` int(10) UNSIGNED NOT NULL,
+  `im_id` int(11) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
   `quantity` int(11) NOT NULL,
   `measuring_unit` varchar(20) NOT NULL
@@ -53,7 +77,7 @@ CREATE TABLE `intermediate_items` (
 --
 
 CREATE TABLE `orders` (
-  `order_id` int(10) UNSIGNED NOT NULL,
+  `order_id` int(11) UNSIGNED NOT NULL,
   `vendor` varchar(50) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
@@ -64,11 +88,23 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `raw_intermediate`
+--
+
+CREATE TABLE `raw_intermediate` (
+  `rm_id` int(11) UNSIGNED NOT NULL,
+  `im_id` int(11) UNSIGNED NOT NULL,
+  `quantity` int(11) NOT NULL COMMENT 'quantity of raw material used per intermediate'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `raw_material`
 --
 
 CREATE TABLE `raw_material` (
-  `rm_id` int(10) UNSIGNED NOT NULL,
+  `rm_id` int(11) UNSIGNED NOT NULL,
   `name` varchar(100) NOT NULL,
   `quantity` int(11) NOT NULL,
   `measuring_unit` varchar(20) NOT NULL
@@ -92,10 +128,24 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indexes for table `finished_order`
+--
+ALTER TABLE `finished_order`
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `fp_id` (`fp_id`);
+
+--
 -- Indexes for table `finished_product`
 --
 ALTER TABLE `finished_product`
   ADD PRIMARY KEY (`fp_id`);
+
+--
+-- Indexes for table `intermediate_finished`
+--
+ALTER TABLE `intermediate_finished`
+  ADD KEY `im_id` (`im_id`),
+  ADD KEY `fp_id` (`fp_id`);
 
 --
 -- Indexes for table `intermediate_items`
@@ -108,6 +158,13 @@ ALTER TABLE `intermediate_items`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`order_id`);
+
+--
+-- Indexes for table `raw_intermediate`
+--
+ALTER TABLE `raw_intermediate`
+  ADD KEY `rm_id` (`rm_id`),
+  ADD KEY `im_id` (`im_id`);
 
 --
 -- Indexes for table `raw_material`
@@ -129,22 +186,47 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `finished_product`
 --
 ALTER TABLE `finished_product`
-  MODIFY `fp_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `fp_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `intermediate_items`
 --
 ALTER TABLE `intermediate_items`
-  MODIFY `im_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `im_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `order_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `raw_material`
 --
 ALTER TABLE `raw_material`
-  MODIFY `rm_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `rm_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `finished_order`
+--
+ALTER TABLE `finished_order`
+  ADD CONSTRAINT `finished_order_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `finished_order_ibfk_2` FOREIGN KEY (`fp_id`) REFERENCES `finished_product` (`fp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `intermediate_finished`
+--
+ALTER TABLE `intermediate_finished`
+  ADD CONSTRAINT `intermediate_finished_ibfk_1` FOREIGN KEY (`im_id`) REFERENCES `intermediate_items` (`im_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `intermediate_finished_ibfk_2` FOREIGN KEY (`fp_id`) REFERENCES `finished_product` (`fp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `raw_intermediate`
+--
+ALTER TABLE `raw_intermediate`
+  ADD CONSTRAINT `raw_intermediate_ibfk_1` FOREIGN KEY (`rm_id`) REFERENCES `raw_material` (`rm_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `raw_intermediate_ibfk_2` FOREIGN KEY (`im_id`) REFERENCES `intermediate_items` (`im_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
