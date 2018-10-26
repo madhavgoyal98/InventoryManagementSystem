@@ -59,6 +59,7 @@
                         <li class="nav-item" role="presentation"><a class="nav-link" href="../admin_raw_material/admin_raw_material.php" style="color:rgb(254,254,254);">Raw Material</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link" href="../admin_intermediate_items/admin_intermediate_items.php" style="color:rgb(255,255,255);">Intermediate Items</a></li>
                         <li class="nav-item" role="presentation" style="background-color:#1773f3;"><a class="nav-link" href="admin_finished_items.php" style="color:rgb(253,253,253);">Finished Items</a></li>
+						<li class="nav-item" role="presentation"><a class="nav-link" href="../logout/logout.php" style="color:rgb(254,254,254);">Logout</a></li>
                     </ul>
             	</div>
 				
