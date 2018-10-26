@@ -91,7 +91,7 @@
 
 <body>
     <nav class="navbar navbar-light navbar-expand-md navigation-clean-search">
-        <div class="container"><a class="navbar-brand" href="#">JobSeeker.com</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="container"><a class="navbar-brand" href="#">ABC</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse"
                 id="navcol-1">
                 <ul class="nav navbar-nav"></ul>
@@ -121,7 +121,6 @@
             <div class="form-group">
 				<button class="btn btn-primary btn-block" type="submit" name="submit">Log In</button>
 			</div>
-			<a href="#" style="margin:190px;color:rgb(129,138,148);height:auto;font-size:15px;padding:0px;">Signup</a>
 		</form>
     </div>
     
