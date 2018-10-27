@@ -80,9 +80,9 @@
 				echo("<table class='table table-hover table-responsive table-bordered' style='width:100%;'>
 						<thead>
 							<tr style='background-color:rgba(237,234,234,0.2);'>
-								<th style='width:50%;'>Name</th>
-								<th style='width:50%;'>Role</th>
-								<th style='width:50%;'>Actions</th>
+								<th style='width:40%;'>Name</th>
+								<th style='width:20%;'>Role</th>
+								<th style='width:30%;'>Actions</th>
 							</tr>
 						</thead>
 
@@ -98,7 +98,7 @@
 						echo("<td>");
 
 							// edit category button
-							echo("<a href='.php?id={$row[0]}' class='btn btn-info'>");
+							echo("<a href='update_user.php?id={$row[0]}' class='btn btn-info'>");
 								echo("<span class='glyphicon glyphicon-edit'></span> Edit");
 							echo("</a>");
 
