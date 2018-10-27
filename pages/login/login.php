@@ -15,6 +15,43 @@
 </head>
 	
 <?php
+	require_once("../../config/database.php");
+	require_once("../../config/users.php");
+	require_once("../../config/input_cleaning.php");
+	
+	$err = "";
+	$database = new Database();
+	$conn = $database->getConnection();
+	
+	if(isset($_POST['submit']))
+	{
+		$username = sanitizeMySQL($conn, $_POST['username']);
+		$password = sanitizeMySQL($conn, $_POST['password']);
+		
+		$user = new Users($conn, $username, $password);
+		
+		$result = $user->authenticate();
+		
+		if($result[0] == "0")
+		{
+			$err = "Invalid username/password";
+		}
+		else
+		{
+			session_start();
+			$_SESSION['role'] = $result[1];
+			$_SESSION['username'] = $username;
+			
+			if($result[1] == "admin")
+			{
+				header('Location: ../admin_manage_users/admin_manage_users.php');
+			}
+			else
+			{
+				header('Location: ../worker_orders/worker_orders.php');
+			}
+		}
+	}
 ?>
 
 <body>
@@ -35,10 +72,10 @@
             <div class="illustration" style="background-image:url(&quot;assets/img/invent1.png&quot;);height:120px;background-repeat:no-repeat;"></div>
             <span id="error" style="color: red"><?php echo($err); ?></span>
             <div class="form-group">
-				<input class="form-control" type="email" name="email" placeholder="Email" script="document.getElementById('error').innerHTML='';" required>
+				<input class="form-control" type="text" name="username" placeholder="Username" onClick="document.getElementById('error').innerHTML='';" required>
 			</div>
             <div class="form-group">
-				<input class="form-control" type="password" name="password" placeholder="Password" script="document.getElementById('error').innerHTML='';" required>
+				<input class="form-control" type="password" name="password" placeholder="Password" onClick="document.getElementById('error').innerHTML='';" required>
 			</div>
             <div class="form-group">
 				<button class="btn btn-primary btn-block" type="submit" name="submit">Log In</button>
