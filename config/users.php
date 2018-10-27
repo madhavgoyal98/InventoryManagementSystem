@@ -41,5 +41,32 @@
 				}
 			}
 		}
+		
+		public function readAll($from_record_num, $records_per_page)
+		{
+			$query = "SELECT
+						uid, name, role
+					FROM
+						users
+					ORDER BY
+						name ASC
+					LIMIT
+						{$from_record_num}, {$records_per_page}";
+
+			$result = $this->conn->query( $query );
+
+			return $result;
+		}
+		
+		// used for paging products
+		public function countAll()
+		{
+			$query = "SELECT COUNT(*) FROM users";
+
+			$result = $this->conn->query( $query );
+			$row = $result->fetch_array(MYSQLI_NUM);
+
+			return $row[0];
+		}
 	}
 ?>
