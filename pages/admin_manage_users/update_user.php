@@ -43,6 +43,9 @@
 				echo("<div class='alert alert-success alert-dismissable'>");
 					echo("User details updated.");
 				echo("</div>");
+				
+				//get updated values
+				$user_details = $user->readOne($id);
 			}
 
 			// if unable to update the product, tell the user
