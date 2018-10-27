@@ -97,13 +97,15 @@
 
 						echo("<td>");
 
-							// edit category button
+							// edit user button
 							echo("<a href='update_user.php?id={$row[0]}' class='btn btn-info'>");
 								echo("<span class='glyphicon glyphicon-edit'></span> Edit");
 							echo("</a>");
+					
+							echo("&nbsp; &nbsp; &nbsp;");
 
-							// delete category button
-							echo("<a delete-id='{$row[0]}' class='btn btn-danger'>");
+							// delete user button
+							echo("<a delete-id='{$row[0]}' class='btn btn-danger delete-object'>");
 								echo("<span class='glyphicon glyphicon-remove'></span> Delete");
 							echo("</a>");
 
@@ -135,6 +137,43 @@
 	
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	<script src="assets/js/bootbox.min.js"></script>
+	<script>
+		// JavaScript for deleting product
+		$(document).on('click', '.delete-object', function(){
+
+			var id = $(this).attr('delete-id');
+
+			bootbox.confirm({
+				message: "<h4>Are you sure?</h4>",
+				buttons: {
+					confirm: {
+						label: '<span class="glyphicon glyphicon-ok"></span> Yes',
+						className: 'btn-danger'
+					},
+					cancel: {
+						label: '<span class="glyphicon glyphicon-remove"></span> No',
+						className: 'btn-primary'
+					}
+				},
+				callback: function (result) {
+
+					if(result==true)
+					{
+						$.post('delete_user.php', {
+							object_id: id
+						}, function(data){
+							location.reload();
+						}).fail(function() {
+							alert('Unable to delete.');
+						});
+					}
+				}
+			});
+
+			return false;
+		});	
+	</script>
 	
 </body>
 
