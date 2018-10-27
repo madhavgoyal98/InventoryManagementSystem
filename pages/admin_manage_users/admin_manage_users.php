@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<?php
+	session_start();
+?>
+
 <html>
 
 <head>
@@ -11,39 +16,8 @@
 </head>
 	
 <?php
-	require("../db_cred.php"); //database credentials
-	require("../input_cleaning.php"); //input sanitization functions
-	
-	$connection = new MySQLi($db_host, $db_user, $db_pass, $db_name);
-	
-	// page given in URL parameter, default page is one
-	$page = isset($_GET['page']) ? $_GET['page'] : 1;
-
-	// set number of records per page
-	$records_per_page = 5;
-
-	// calculate for the query LIMIT clause
-	$from_record_num = ($records_per_page * $page) - $records_per_page;
-	
-	$query = "SELECT * FROM categories;";
-	$result = $connection->query($query);
-	
-	if(!$result)
-	{
-		die($connection->connect_error);
-	}
-	
-	// total rows in table
-	$total_rows = $result->num_rows;
-	$result->close();
-	
-	$query = "SELECT * FROM categories ORDER BY category ASC LIMIT {$from_record_num}, {$records_per_page};";
-	$result = $connection->query($query);
-	
-	if(!$result)
-	{
-		die($connection->connect_error);
-	}
+	require_once("../../config/database.php");
+	require_once("../../config/users.php");
 ?>
 
 <body style="background-color:transparent;">
@@ -68,7 +42,7 @@
 		
     </div>
 	
-	<a href="#" class="btn btn-default" style="float:right;color:rgb(2,2,2);background-color:#edeaea;margin:7% 35% 0px;border-color:black;font-size:13px;">Add Category</a>
+	<a href="#" class="btn btn-default" style="float:right;color:rgb(2,2,2);background-color:#edeaea;margin:7% 35% 0px;border-color:black;font-size:13px;">Add User</a>
 	
 	<div class="table-responsive" style="width:40%;margin:10% 25% 0px;">
 			
@@ -80,8 +54,8 @@
 				echo("<table class='table table-hover table-responsive table-bordered' style='width:100%;'>
 						<thead>
 							<tr style='background-color:rgba(237,234,234,0.2);'>
-								<th style='width:50%;border-right:solid 1px;'>Categories</th>
-								<th style='width:50%;'>Actions</th>
+								<th style='width:50%;border-right:solid 1px;'>Name</th>
+								<th style='width:50%;'>Role</th>
 							</tr>
 						</thead>
 
@@ -115,7 +89,7 @@
 		<?php
 
 				// the page where this paging is used
-				$page_url = "admin_category.php?";
+				$page_url = "admin_manage_users.php?";
 
 				// paging buttons here
 				include_once('paging.php');
@@ -124,7 +98,7 @@
 			// tell the user there are no products
 			else
 			{
-				echo "<div class='alert alert-info'>No products found.</div>";
+				echo "<div class='alert alert-info'>No users found.</div>";
 			}
 		?>
 
