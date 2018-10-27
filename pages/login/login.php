@@ -15,6 +15,7 @@
 </head>
 	
 <?php
+	//importing class files
 	require_once("../../config/database.php");
 	require_once("../../config/users.php");
 	require_once("../../config/input_cleaning.php");
@@ -25,14 +26,16 @@
 	
 	if(isset($_POST['submit']))
 	{
+		//sanitizing input
 		$username = sanitizeMySQL($conn, $_POST['username']);
 		$password = sanitizeMySQL($conn, $_POST['password']);
 		
 		$user = new Users($conn, $username, $password);
 		
+		//authenticating the user
 		$result = $user->authenticate();
 		
-		if($result[0] == "0")
+		if($result[0] == "0") //invalid details
 		{
 			$err = "Invalid username/password";
 		}
@@ -42,11 +45,12 @@
 			$_SESSION['role'] = $result[1];
 			$_SESSION['username'] = $username;
 			
+			//redirecting based on role
 			if($result[1] == "admin")
 			{
 				header('Location: ../admin_manage_users/admin_manage_users.php');
 			}
-			else
+			else //role='worker'
 			{
 				header('Location: ../worker_orders/worker_orders.php');
 			}
