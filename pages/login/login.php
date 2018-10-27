@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+
+<?php
+	session_start();
+?>
+
 <html>
 
 <head>
@@ -41,17 +46,18 @@
 		}
 		else
 		{
-			session_start();
 			$_SESSION['role'] = $result[1];
 			$_SESSION['username'] = $username;
 			
 			//redirecting based on role
 			if($result[1] == "admin")
 			{
+				$database->closeConnection();
 				header('Location: ../admin_manage_users/admin_manage_users.php');
 			}
 			else //role='worker'
 			{
+				$database->closeConnection();
 				header('Location: ../worker_orders/worker_orders.php');
 			}
 		}
