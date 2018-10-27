@@ -68,7 +68,7 @@
 		
     </div>
 	
-	<a href="#" class="btn btn-default" style="float:right;color:rgb(2,2,2);background-color:#edeaea;margin:7% 35% 0px;border-color:black;font-size:13px;">Add User</a>
+	<a href="create_user.php" class="btn btn-default" style="float:right;color:rgb(2,2,2);background-color:#edeaea;margin:7% 35% 0px;border-color:black;font-size:13px;">Add User</a>
 	
 	<div class="table-responsive" style="width:40%;margin:10% 25% 0px;">
 			
