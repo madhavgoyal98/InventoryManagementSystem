@@ -108,5 +108,23 @@
 
 			return false;
 		}
+		
+		// delete the user
+		public function delete($id)
+		{
+
+			$query = "DELETE FROM users WHERE uid = '$id'";
+
+			$result = $this->conn->query($query);
+
+			if($result)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 ?>
