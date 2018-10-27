@@ -31,15 +31,13 @@
 				if(password_verify($this->password, $row[1])) //verifying the encrypted password
 				{
 					$this->role = $row[3];
+					$arr = array("1", $this->role);
 					
-					session_start();
-					$_SESSION['role'] = $this->role; //storing role in session variable
-					
-					return("1"); //if username and password match
+					return($arr); //if username and password match
 				}
 				else
 				{
-					return("0");
+					return(array("0"));
 				}
 			}
 		}
