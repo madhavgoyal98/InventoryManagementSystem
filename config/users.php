@@ -126,5 +126,29 @@
 				return false;
 			}
 		}
+				
+		// create user
+		public function create($name, $username, $password, $role)
+		{
+			$p = password_hash($password, PASSWORD_DEFAULT);
+			
+			$query = "INSERT INTO
+						users
+					VALUES(
+						'$username', '$p', '$name', '$role')";
+
+			$result = $this->conn->query($query);
+
+
+			if($result)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+
+		}
 	}
 ?>
