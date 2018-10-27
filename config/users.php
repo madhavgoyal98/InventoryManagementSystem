@@ -68,5 +68,45 @@
 
 			return $row[0];
 		}
+		
+		public function readOne($id)
+		{
+			$query = "SELECT
+						name, role
+					FROM
+						users
+					WHERE
+						uid = '$id'
+					LIMIT
+						0,1";
+
+			$result = $this->conn->query( $query );
+			$row = $result->fetch_array(MYSQLI_NUM);
+			
+			return($row);
+		}
+		
+		public function update($id, $name, $password, $role)
+		{
+			$p = password_hash($password, PASSWORD_DEFAULT);
+			
+			$query = "UPDATE
+						users
+					SET
+						name = '$name',
+						password = '$p',
+						role = '$role'
+					WHERE
+						uid = '$id'";
+
+			$result = $this->conn->query($query);
+
+			if($result)
+			{
+				return true;
+			}
+
+			return false;
+		}
 	}
 ?>
