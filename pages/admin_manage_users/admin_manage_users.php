@@ -9,15 +9,41 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Category</title>
+    <title>Manage Users</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/Navigation-Clean.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 	
 <?php
+	//page accessible only by admin
+	if($_SESSION['role'] != 'admin')
+	{
+		die("You don't have permission to access this page");
+	}
+	
+	//importing class files
 	require_once("../../config/database.php");
 	require_once("../../config/users.php");
+	
+	$database = new Database();
+	$conn = $database->getConnection();
+	
+	$user = new Users($conn, "", "");
+	
+	// page given in URL parameter, default page is one
+	$page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+	// set number of records per page
+	$records_per_page = 5;
+
+	// calculate for the query LIMIT clause
+	$from_record_num = ($records_per_page * $page) - $records_per_page;
+	
+	// query products
+	$result = $user->readAll($from_record_num, $records_per_page);
+	$num = $result->num_rows;
+	
 ?>
 
 <body style="background-color:transparent;">
@@ -48,14 +74,15 @@
 			
 		<?php
 
-			// display the categories if there are any
-			if($total_rows>0)
+			// display the users if there are any
+			if($num > 0)
 			{
 				echo("<table class='table table-hover table-responsive table-bordered' style='width:100%;'>
 						<thead>
 							<tr style='background-color:rgba(237,234,234,0.2);'>
-								<th style='width:50%;border-right:solid 1px;'>Name</th>
+								<th style='width:50%;'>Name</th>
 								<th style='width:50%;'>Role</th>
+								<th style='width:50%;'>Actions</th>
 							</tr>
 						</thead>
 
@@ -64,7 +91,9 @@
 				while ($row = $result->fetch_array(MYSQLI_NUM))
 				{
 					echo("<tr>");
-						echo("<td>". $row[0]. "</td>");
+						echo("<td>". $row[1]. "</td>");
+						
+						echo("<td>". $row[2]. "</td>");
 
 						echo("<td>");
 
@@ -83,19 +112,19 @@
 				}
 
 				echo("</tbody></table>");
-		?>
 
-
-		<?php
 
 				// the page where this paging is used
 				$page_url = "admin_manage_users.php?";
+				
+				// count all products in the database to calculate total pages
+				$total_rows = $user->countAll();
 
 				// paging buttons here
 				include_once('paging.php');
 			}
 
-			// tell the user there are no products
+			// tell the admin there are no users
 			else
 			{
 				echo "<div class='alert alert-info'>No users found.</div>";
