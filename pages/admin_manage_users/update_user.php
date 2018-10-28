@@ -65,12 +65,12 @@
 
 				<tr>
 					<td style="width: 30%">Name</td>
-					<td><input type='text' name='name' value='<?php echo($user_details[0]) ?>' class='form-control' maxlength="40"></td>
+					<td><input type='text' name='name' value='<?php echo($user_details[0]) ?>' class='form-control' maxlength="40" required></td>
 				</tr>
 
 				<tr>
 					<td style="width: 30%">Password</td>
-					<td><input type='password' name='password' value='' class='form-control' required/></td>
+					<td><input type='password' name='password' value='' class='form-control' maxlength="30" required></td>
 				</tr>
 
 				<tr>

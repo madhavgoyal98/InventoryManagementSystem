@@ -119,7 +119,7 @@
 				// the page where this paging is used
 				$page_url = "admin_manage_users.php?";
 				
-				// count all products in the database to calculate total pages
+				// count all users in the database to calculate total pages
 				$total_rows = $user->countAll();
 
 				// paging buttons here

@@ -58,17 +58,17 @@
 
 				<tr>
 					<td style="width: 30%;">Name</td>
-					<td style="width: 40%;"><input type='text' name='name' class='form-control' maxlength="40"></td>
+					<td style="width: 40%;"><input type='text' name='name' class='form-control' maxlength="40" required></td>
 				</tr>
 
 				<tr>
 					<td style="width: 30%;">Username</td>
-					<td><input type='text' name='username' class='form-control' maxlength="30"></td>
+					<td><input type='text' name='username' class='form-control' maxlength="30" required></td>
 				</tr>
 
 				<tr>
 					<td style="width: 30%;">Password</td>
-					<td><input type='password' name='password' class='form-control' maxlength="30"></td>
+					<td><input type='password' name='password' class='form-control' maxlength="30" required></td>
 				</tr>
 
 				<tr>
