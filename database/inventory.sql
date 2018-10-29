@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2018 at 03:39 PM
+-- Generation Time: Oct 29, 2018 at 03:58 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `finished_order` (
   `order_id` int(11) UNSIGNED NOT NULL,
   `fp_id` int(11) UNSIGNED NOT NULL,
-  `quantity` int(11) NOT NULL COMMENT 'quantity of finished product made for order'
+  `quantity_made` int(11) NOT NULL COMMENT 'quantity of finished product made for order'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -54,7 +54,7 @@ CREATE TABLE `finished_product` (
 CREATE TABLE `intermediate_finished` (
   `im_id` int(11) UNSIGNED NOT NULL,
   `fp_id` int(11) UNSIGNED NOT NULL,
-  `quantity` int(11) NOT NULL COMMENT 'quantity of intermediate used per finished product'
+  `quantity_used` int(11) NOT NULL COMMENT 'quantity of intermediate used per finished product'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -95,8 +95,8 @@ CREATE TABLE `raw_intermediate` (
   `rm_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `im_im_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `im_id` int(11) UNSIGNED NOT NULL,
-  `rm_quantity` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'quantity of raw material used per intermediate',
-  `im_quantity` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'quantity of intermedeiate used per intermediate'
+  `rm_quantity_used` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'quantity of raw material used per intermediate',
+  `im_quantity_used` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'quantity of intermedeiate used per intermediate'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
