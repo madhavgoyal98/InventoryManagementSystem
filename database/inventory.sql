@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 26, 2018 at 01:40 PM
+-- Generation Time: Oct 29, 2018 at 03:39 PM
 -- Server version: 5.7.14
 -- PHP Version: 7.0.10
 
@@ -92,9 +92,11 @@ CREATE TABLE `orders` (
 --
 
 CREATE TABLE `raw_intermediate` (
-  `rm_id` int(11) UNSIGNED NOT NULL,
+  `rm_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `im_im_id` int(11) UNSIGNED NOT NULL DEFAULT '0',
   `im_id` int(11) UNSIGNED NOT NULL,
-  `quantity` int(11) NOT NULL COMMENT 'quantity of raw material used per intermediate'
+  `rm_quantity` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'quantity of raw material used per intermediate',
+  `im_quantity` int(11) UNSIGNED NOT NULL DEFAULT '0' COMMENT 'quantity of intermedeiate used per intermediate'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -110,6 +112,19 @@ CREATE TABLE `raw_material` (
   `measuring_unit` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `raw_material`
+--
+
+INSERT INTO `raw_material` (`rm_id`, `name`, `quantity`, `measuring_unit`) VALUES
+(1, 'wedf', 54, 'wqed'),
+(2, 'qswdef', 857, 'qASDF'),
+(3, 'fb', 63, '2wedrgfh'),
+(4, 'efrgb', 8756, 'wedrf'),
+(5, 'iuujh', 8956, 'resfxgbn'),
+(6, 'dxfgch', 8956, 'rexfgchjk'),
+(7, 'fdxgchjbkl', 96, 'ytfhjk');
+
 -- --------------------------------------------------------
 
 --
@@ -118,10 +133,18 @@ CREATE TABLE `raw_material` (
 
 CREATE TABLE `users` (
   `uid` varchar(30) NOT NULL,
-  `password` varchar(300) NOT NULL,
+  `password` varchar(100) NOT NULL,
   `name` varchar(40) NOT NULL,
   `role` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`uid`, `password`, `name`, `role`) VALUES
+('a', '$2y$10$9fXEVF1B6Afl2gf6wElnZuEZjVz.HjhVamdKaJQuPN6tx2zTS9B.y', 'admin1', 'admin'),
+('w', '$2y$10$XaDBh5/jnNAM7UPTAEqiE.Z2lJAi/yjFWaDyah70levcYQo1WGCTC', 'w', 'worker');
 
 --
 -- Indexes for dumped tables
@@ -164,13 +187,15 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `raw_intermediate`
   ADD KEY `rm_id` (`rm_id`),
-  ADD KEY `im_id` (`im_id`);
+  ADD KEY `im_id` (`im_id`),
+  ADD KEY `im_im_id` (`im_im_id`);
 
 --
 -- Indexes for table `raw_material`
 --
 ALTER TABLE `raw_material`
-  ADD PRIMARY KEY (`rm_id`);
+  ADD PRIMARY KEY (`rm_id`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
 -- Indexes for table `users`
@@ -201,7 +226,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `raw_material`
 --
 ALTER TABLE `raw_material`
-  MODIFY `rm_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `rm_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- Constraints for dumped tables
 --
@@ -225,7 +250,8 @@ ALTER TABLE `intermediate_finished`
 --
 ALTER TABLE `raw_intermediate`
   ADD CONSTRAINT `raw_intermediate_ibfk_1` FOREIGN KEY (`rm_id`) REFERENCES `raw_material` (`rm_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `raw_intermediate_ibfk_2` FOREIGN KEY (`im_id`) REFERENCES `intermediate_items` (`im_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `raw_intermediate_ibfk_2` FOREIGN KEY (`im_id`) REFERENCES `intermediate_items` (`im_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `raw_intermediate_ibfk_3` FOREIGN KEY (`im_im_id`) REFERENCES `intermediate_items` (`im_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
