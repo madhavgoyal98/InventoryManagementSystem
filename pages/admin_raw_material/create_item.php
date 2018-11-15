@@ -57,7 +57,7 @@
 
 				<tr>
 					<td style="width: 30%;">Name</td>
-					<td style="width: 40%;"><input type='text' name='name' class='form-control' maxlength="100"></td>
+					<td style="width: 40%;"><input type='text' name='name' class='form-control' maxlength="100" required></td>
 				</tr>
 
 				<tr>
@@ -67,7 +67,7 @@
 
 				<tr>
 					<td style="width: 30%;">Measuring Unit</td>
-					<td><input type='text' name='measuring' class='form-control' maxlength="20"></td>
+					<td><input type='text' name='measuring' class='form-control' maxlength="20" required></td>
 				</tr>
 
 				<tr>
