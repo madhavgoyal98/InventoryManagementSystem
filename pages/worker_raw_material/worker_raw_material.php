@@ -38,7 +38,7 @@
 	$records_per_page = 5;
 
 	// calculate for the query LIMIT clause
-	$from_record_num = ($records_per_page * $page) - $records_per_page;
+	$from_record_num = ($records_per_page * $page) - $records_per_page + 1;
 	
 	// query products
 	$result = $rm->readAll($from_record_num, $records_per_page);
