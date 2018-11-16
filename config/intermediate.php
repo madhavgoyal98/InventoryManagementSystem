@@ -49,7 +49,7 @@
 					FROM
 						intermediate_items
 					WHERE
-						rm_id = '$id'
+						im_id = '$id'
 					LIMIT
 						0,1";
 
