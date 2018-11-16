@@ -62,13 +62,13 @@
 		public function update($id)
 		{			
 			$query = "UPDATE
-						raw_material
+						intermediate_items
 					SET
 						name = '$this->name',
 						quantity = '$this->quantity',
 						measuring_unit = '$this->measuring_unit'
 					WHERE
-						rm_id = '$id'";
+						im_id = '$id'";
 
 			$result = $this->conn->query($query);
 
