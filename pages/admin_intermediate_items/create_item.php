@@ -87,21 +87,21 @@
 
 				<tr>
 					<td style="width: 30%;">Name</td>
-					<td style="width: 40%;"><input type='text' name='name' class='form-control' maxlength="100" required></td>
+					<td style="width: 40%;"><input type='text' name='name' class='form-control' maxlength="100" oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' required></td>
 				</tr>
 
 				<tr>
-					<td style="width: 30%;">Quantity</td>
-					<td><input type='number' name='quantity' class='form-control' maxlength="11"></td>
+					<td style="width: 30%;">Quantity <font color=#FF0004>(enter from main page)</font></td>
+					<td><input type='tel' name='quantity' value="0" class='form-control' readonly></td>
 				</tr>
 
 				<tr>
 					<td style="width: 30%;">Measuring Unit</td>
-					<td><input type='text' name='measuring' class='form-control' maxlength="20" required></td>
+					<td><input type='text' name='measuring' class='form-control' maxlength="20" oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' required></td>
 				</tr>
 				
 				<tr>
-					<td style="width: 30%;">Raw material used</td>
+					<td style="width: 30%;">Raw material used <br><font color=#FF0004>(cannot be updated once submitted)</font></td>
 					<td>
 						<table class='table table-hover table-responsive' style="width: 100%;">
 							<?php
@@ -113,7 +113,7 @@
 									
 									echo("<tr>");
 										echo("<td>". $row[1]. "</td>");
-										echo("<td style='border-right: solid 2px;'>". "<input type='number' name='rm_$row[0]' value='0' class='form-control' maxlength='11'>". "</td>");
+										echo("<td style='border-right: solid 2px;'>". "<input type='number' name='rm_$row[0]' value='0' class='form-control' maxlength='4' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
 																				
 										$i++;
 									
@@ -122,7 +122,7 @@
 											$row = $result->fetch_array(MYSQLI_NUM);
 											
 											echo("<td>". $row[1]. "</td>");
-											echo("<td>". "<input type='number' name='rm_$row[0]' value='0' class='form-control' maxlength='11'>". "</td>");
+											echo("<td>". "<input type='number' name='rm_$row[0]' value='0' class='form-control' maxlength='4' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
 										}
 									echo("</tr>");
 								}
@@ -147,7 +147,7 @@
 									
 									echo("<tr>");
 										echo("<td>". $row[1]. "</td>");
-										echo("<td style='border-right: solid 2px;'>". "<input type='number' name='im_$row[0]' value='0' class='form-control' maxlength='11'>". "</td>");
+										echo("<td style='border-right: solid 2px;'>". "<input type='number' name='im_$row[0]' value='0' class='form-control' maxlength='4' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
 																				
 										$i++;
 									
@@ -156,7 +156,7 @@
 											$row = $result->fetch_array(MYSQLI_NUM);
 											
 											echo("<td>". $row[1]. "</td>");
-											echo("<td>". "<input type='number' name='im_$row[0]' value='0' class='form-control' maxlength='11'>". "</td>");
+											echo("<td>". "<input type='number' name='im_$row[0]' value='0' class='form-control' maxlength='4' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
 										}
 									echo("</tr>");
 								}
