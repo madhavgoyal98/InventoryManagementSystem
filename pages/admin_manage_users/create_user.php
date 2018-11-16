@@ -58,17 +58,17 @@
 
 				<tr>
 					<td style="width: 30%;">Name</td>
-					<td style="width: 40%;"><input type='text' name='name' class='form-control' maxlength="40" required></td>
+					<td style="width: 40%;"><input type='text' name='name' class='form-control' maxlength="40" oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' required></td>
 				</tr>
 
 				<tr>
 					<td style="width: 30%;">Username</td>
-					<td><input type='text' name='username' class='form-control' maxlength="30" required></td>
+					<td><input type='text' name='username' class='form-control' maxlength="30" oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' required></td>
 				</tr>
 
 				<tr>
 					<td style="width: 30%;">Password</td>
-					<td><input type='password' name='password' class='form-control' maxlength="30" required></td>
+					<td><input type='password' name='password' class='form-control' maxlength="30" oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' required></td>
 				</tr>
 
 				<tr>
