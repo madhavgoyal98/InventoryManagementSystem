@@ -56,7 +56,30 @@
 			$result = $this->conn->query( $query );
 			$row = $result->fetch_array(MYSQLI_NUM);
 			
-			return($row);
+			$this->name = $row[0];
+			$this->quantity = $row[1];
+			$this->measuring_unit = $row[2];
+			
+			
+			//getting data from raw_intermediate table
+			//getting the list of raw materials used
+				$query = "SELECT raw_material.name, raw_intermediate.rm_quantity_used FROM raw_material, raw_intermediate WHERE raw_material.rm_id = raw_intermediate.rm_id && raw_intermediate.im_id = '$id' && raw_intermediate.rm_id != 0; ";
+				$result = $this->conn->query($query);
+				
+				while($row = $result->fetch_array(MYSQLI_NUM))
+				{
+					$this->rm_used[$row[0]] = $row[1];
+				}
+				
+				
+				//getting the list of intermediate items used
+				$query = "SELECT intermediate_items.name, raw_intermediate.im_quantity_used FROM intermediate_items, raw_intermediate WHERE intermediate_items.im_id = raw_intermediate.im_im_id && raw_intermediate.im_id = '$id' && raw_intermediate.im_im_id != 0; ";
+				$result = $this->conn->query($query);
+				
+				while($row = $result->fetch_array(MYSQLI_NUM))
+				{
+					$this->im_used[$row[0]] = $row[1];
+				}
 		}
 		
 		public function update($id)
@@ -160,7 +183,6 @@
 						throw new Exception($this->conn->error);
 					}
 				}
-				
 				
 				
 				$this->conn->query("COMMIT");
