@@ -30,7 +30,7 @@
 
 		$rm = new RawMaterial($conn);
 
-		$rm_details = $rm->readOne($id);
+		$rm->readOne($id);
 	?>
 
 	<?php 
@@ -49,7 +49,7 @@
 				echo("</div>");
 				
 				//get updated values
-				$rm_details = $rm->readOne($id);
+				$rm->readOne($id);
 			}
 
 			// if unable to update the product, tell the user
@@ -69,17 +69,17 @@
 
 				<tr>
 					<td style="width: 30%">Name</td>
-					<td><input type='text' name='name' value='<?php echo($rm_details[0]); ?>' class='form-control' readonly></td>
+					<td><input type='text' name='name' value='<?php echo($rm->name); ?>' class='form-control' readonly></td>
 				</tr>
 
 				<tr>
 					<td style="width: 30%">Quantity</td>
-					<td><input type='number' name='quantity' value='<?php echo($rm_details[1]); ?>' class='form-control' maxlength="11" oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' required></td>
+					<td><input type='number' name='quantity' value='<?php echo($rm->quantity); ?>' class='form-control' maxlength="11" oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' required></td>
 				</tr>
 				
 				<tr>
 					<td style="width: 30%">Measuring Unit</td>
-					<td><input type='text' name='measuring' value='<?php echo($rm_details[2]); ?>' class='form-control' readonly></td>
+					<td><input type='text' name='measuring' value='<?php echo($rm->measuring_unit); ?>' class='form-control' readonly></td>
 				</tr>
 
 				<tr>
