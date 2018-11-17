@@ -54,7 +54,9 @@
 			$result = $this->conn->query( $query );
 			$row = $result->fetch_array(MYSQLI_NUM);
 			
-			return($row);
+			$this->name = $row[0];
+			$this->quantity = $row[1];
+			$this->measuring_unit = $row[2];
 		}
 		
 		public function update($id)
