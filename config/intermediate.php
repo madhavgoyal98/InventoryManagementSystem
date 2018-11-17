@@ -84,6 +84,9 @@
 		
 		public function update($id)
 		{			
+			$this->im_used = array();
+			$this->rm_used = array();
+			
 			try
 			{
 				$this->conn->query("BEGIN");
