@@ -56,7 +56,7 @@
 			</tr>
 
 			<tr>
-				<td style="width: 30%;">Raw material used <br><font color=#FF0004>(cannot be updated once submitted)</font></td>
+				<td style="width: 30%;">Raw material used</td>
 				<td>
 					<table class='table table-hover table-responsive' style="width: 100%;">
 						<?php
