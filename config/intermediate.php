@@ -61,7 +61,26 @@
 		
 		public function update($id)
 		{			
-			$query = "UPDATE
+			try
+			{
+				$this->conn->query("BEGIN");
+				
+				//getting value of old quantity of intermediate item
+				$query = "SELECT quantity from intermediate_items WHERE im_id='$id';";
+				$result = $this->conn->query($query);	
+				
+				if(!$result)
+				{
+					$result->free();
+        			throw new Exception($this->conn->error);
+				}
+				
+				$row = $result->fetch_array(MYSQLI_NUM);
+				$old_quantity = $row[0];
+				
+				
+				//updating the quantity
+				$query = "UPDATE
 						intermediate_items
 					SET
 						name = '$this->name',
@@ -69,16 +88,93 @@
 						measuring_unit = '$this->measuring_unit'
 					WHERE
 						im_id = '$id'";
-
-			$result = $this->conn->query($query);
-
-			if($result)
-			{
+				
+				$result = $this->conn->query($query);
+				
+				if(!$result)
+				{
+					$result->free();
+        			throw new Exception($this->conn->error);
+				}
+				
+				
+				//getting the list of raw materials used
+				$query = "SELECT rm_id, rm_quantity_used FROM raw_intermediate WHERE im_id = '$id'; ";
+				$result = $this->conn->query($query);
+				
+				if(!$result)
+				{
+					$result->free();
+        			throw new Exception($this->conn->error);
+				}
+				
+				while($row = $result->fetch_array(MYSQLI_NUM))
+				{
+					$this->rm_used[$row[0]] = $row[1];
+				}
+				
+				
+				//getting the list of intermediate items used
+				$query = "SELECT im_im_id, im_quantity_used FROM raw_intermediate WHERE im_id = '$id'; ";
+				$result = $this->conn->query($query);
+				
+				if(!$result)
+				{
+					$result->free();
+        			throw new Exception($this->conn->error);
+				}
+				
+				while($row = $result->fetch_array(MYSQLI_NUM))
+				{
+					$this->im_used[$row[0]] = $row[1];
+				}
+				
+				
+				//updating quantity of raw material
+				foreach($this->rm_used as $i=>$q)
+				{
+					$x = ($this->quantity - $old_quantity) * $q;
+					
+					$query = "UPDATE raw_material SET quantity = quantity - {$x} WHERE rm_id = '$i'; ";
+					$result = $this->conn->query($query);
+				
+					if(!$result)
+					{
+						$result->free();
+						throw new Exception($this->conn->error);
+					}
+				}
+				
+				
+				//updating quantity of intermediate items
+				foreach($this->im_used as $i=>$q)
+				{
+					$x = ($this->quantity - $old_quantity) * $q;
+					
+					$query = "UPDATE intermediate_items SET quantity = quantity - {$x} WHERE im_id = '$i'; ";
+					$result = $this->conn->query($query);
+				
+					if(!$result)
+					{
+						$result->free();
+						throw new Exception($this->conn->error);
+					}
+				}
+				
+				
+				
+				$this->conn->query("COMMIT");
+				
 				return true;
 			}
-
-			return false;
+			catch(Exception $e)
+			{
+				$this->conn->query("ROLLBACK");
+				
+				return false;
+			}
 		}
+		
 		
 		// delete the item
 		public function delete($id)
@@ -128,30 +224,36 @@
 				//insertion for raw material used
 				foreach($this->rm_used as $id=>$quan)
 				{
-					$query = "INSERT INTO raw_intermediate VALUES('$id', DEFAULT, '$inserted_id', '$quan', DEFAULT);";
-					
-					$result = $this->conn->query($query);
-
-
-					if(!$result)
+					if($quan != 0)
 					{
-						echo($this->conn->error);
-						throw new Exception($this->conn->error);
+						$query = "INSERT INTO raw_intermediate VALUES('$id', DEFAULT, '$inserted_id', '$quan', DEFAULT);";
+					
+						$result = $this->conn->query($query);
+
+
+						if(!$result)
+						{
+							echo($this->conn->error);
+							throw new Exception($this->conn->error);
+						}	
 					}
 				}
 				
 				//insertion for intermediate used
 				foreach($this->im_used as $id=>$quan)
 				{
-					$query = "INSERT INTO raw_intermediate VALUES(DEFAULT, '$id', '$inserted_id', DEFAULT, '$quan')";
-					
-					$result = $this->conn->query($query);
-
-
-					if(!$result)
+					if($quan != 0)
 					{
-						echo($this->conn->error);
-						throw new Exception($this->conn->error);
+						$query = "INSERT INTO raw_intermediate VALUES(DEFAULT, '$id', '$inserted_id', DEFAULT, '$quan')";
+					
+						$result = $this->conn->query($query);
+
+
+						if(!$result)
+						{
+							echo($this->conn->error);
+							throw new Exception($this->conn->error);
+						}	
 					}
 				}
 				
