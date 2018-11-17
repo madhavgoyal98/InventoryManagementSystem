@@ -83,10 +83,10 @@
 				echo("<table class='table table-hover table-responsive table-bordered' style='width:100%;'>
 						<thead>
 							<tr style='background-color:rgba(237,234,234,0.2);'>
-								<th style='width:35%;'>Name</th>
+								<th style='width:30%;'>Name</th>
 								<th style='width:10%;'>Quantity</th>
-								<th style='width:25%;'>Measuring Unit</th>
-								<th style='width:30%;'>Actions</th>
+								<th style='width:22%;'>Measuring Unit</th>
+								<th style='width:35%;'>Actions</th>
 							</tr>
 						</thead>
 
@@ -102,15 +102,22 @@
 						echo("<td>". $row[3]. "</td>");
 
 						echo("<td>");
+					
+							//read button
+							echo("<a href='read_item.php?id={$row[0]}' class='btn btn-primary left-margin'>");
+								echo("<span class='glyphicon glyphicon-list'></span> Details");
+							echo("</a>");
 
-							// edit user button
+							echo("&nbsp;");	
+						
+							// edit button
 							echo("<a href='update_item.php?id={$row[0]}' class='btn btn-info'>");
 								echo("<span class='glyphicon glyphicon-edit'></span> Edit");
 							echo("</a>");
 					
-							echo("&nbsp; &nbsp; &nbsp;");
+							echo("&nbsp;");
 
-							// delete user button
+							// delete button
 							echo("<a delete-id='{$row[0]}' class='btn btn-danger delete-object'>");
 								echo("<span class='glyphicon glyphicon-remove'></span> Delete");
 							echo("</a>");
