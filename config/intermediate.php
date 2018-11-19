@@ -1,5 +1,8 @@
 <?php
-	class Intermediate
+
+	require_once("../../config/interface_items.php");
+
+	class Intermediate implements Items
 	{
 		private $conn;
 		

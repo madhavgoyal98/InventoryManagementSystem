@@ -1,5 +1,8 @@
 <?php
-	class FinishedProduct
+
+	require_once("../../config/interface_items.php");
+	
+	class FinishedProduct implements Items
 	{
 		private $conn;
 		

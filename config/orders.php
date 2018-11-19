@@ -1,5 +1,7 @@
 <?php
-	class Orders
+	require_once("../../config/interface_items.php");
+
+	class Orders implements Items
 	{
 		private $conn;
 		

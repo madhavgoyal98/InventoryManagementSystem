@@ -1,5 +1,8 @@
 <?php
-	class RawMaterial
+
+	require_once("../../config/interface_items.php");
+
+	class RawMaterial implements Items
 	{
 		private $conn;
 		
