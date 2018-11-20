@@ -45,6 +45,8 @@
 		
 		public function readOne($id)
 		{
+			$this->fp = array();
+			
 			$query = "SELECT
 						vendor, start_date, end_date
 					FROM
@@ -64,47 +66,31 @@
 			
 			//getting data from finished_order table				
 			//getting the list of finished products
-			$query = "SELECT finished_product.name, finished_order.quantity_req, finished_order.quantity_made FROM finished_product, finished_order WHERE finished_product.fp_id = finished_order.fp_id && finished_order.order_id = '$id'; ";
+			$query = "SELECT finished_product.name, finished_order.quantity_req, finished_order.quantity_made, finished_order.fp_id FROM finished_product, finished_order WHERE finished_product.fp_id = finished_order.fp_id && finished_order.order_id = '$id'; ";
 			
 			$result = $this->conn->query($query);
 
 			while($row = $result->fetch_array(MYSQLI_NUM))
 			{
-				$this->fp[] = array($row[0], $row[1], $row[2]);
+				$this->fp[] = array($row[0], $row[1], $row[2], $row[3]);
 			}
 		}
 		
 		public function update($id)
 		{			
-			$this->fp = array();
-			
 			try
 			{
 				$this->conn->query("BEGIN");
 				
-				//getting value of old quantity of intermediate item
-				$query = "SELECT quantity from finished_product WHERE fp_id='$id';";
-				$result = $this->conn->query($query);	
-				
-				if(!$result)
-				{
-					$result->free();
-        			throw new Exception($this->conn->error);
-				}
-				
-				$row = $result->fetch_array(MYSQLI_NUM);
-				$old_quantity = $row[0];
-				
-				
 				//updating the quantity
 				$query = "UPDATE
-						finished_product
+						orders
 					SET
-						name = '$this->name',
-						quantity = '$this->quantity',
-						measuring_unit = '$this->measuring_unit'
+						vendor = '$this->vendor',
+						start_date = '$this->start_date',
+						end_date = '$this->end_date'
 					WHERE
-						fp_id = '$id'";
+						order_id = '$id'";
 				
 				$result = $this->conn->query($query);
 				
@@ -115,30 +101,41 @@
 				}
 				
 				
-				//getting the list of intermediate items used
-				$query = "SELECT im_id, quantity_used FROM intermediate_finished WHERE fp_id = '$id'; ";
-				$result = $this->conn->query($query);
-				
-				if(!$result)
+				for($i = 0; $i < count($this->fp); $i++)
 				{
-					$result->free();
-        			throw new Exception($this->conn->error);
-				}
-				
-				while($row = $result->fetch_array(MYSQLI_NUM))
-				{
-					$this->im_used[$row[0]] = $row[1];
-				}
-				
-				
-				//updating quantity of intermediate items
-				foreach($this->im_used as $i=>$q)
-				{
-					$x = ($this->quantity - $old_quantity) * $q;
+					$fp_id = $this->fp[$i][3];
 					
-					$query = "UPDATE intermediate_items SET quantity = quantity - {$x} WHERE im_id = '$i'; ";
+					//getting the old quantity
+					$query = "SELECT quantity_made FROM finished_order WHERE order_id = '$id' && fp_id = '$fp_id'; ";
 					$result = $this->conn->query($query);
-				
+
+					if(!$result)
+					{
+						$result->free();
+						throw new Exception($this->conn->error);
+					}
+					
+					$row = $result->fetch_array(MYSQLI_NUM);
+					$old_quantity = $row[0];
+
+
+					//updating quantity of finished product
+					$x = ($this->fp[$i][2] - $old_quantity) * $this->fp[$i][1];
+
+					$query = "UPDATE finished_product SET quantity = quantity - {$x} WHERE fp_id = '$fp_id'; ";
+					$result = $this->conn->query($query);
+
+					if(!$result)
+					{
+						$result->free();
+						throw new Exception($this->conn->error);
+					}
+					
+					
+					//updating quantity of finished product in finished_order table
+					$query = "UPDATE finished_order SET quantity_made = {$this->fp[$i][2]} WHERE order_id = '$id' && fp_id = '$fp_id'; ";
+					$result = $this->conn->query($query);
+
 					if(!$result)
 					{
 						$result->free();
