@@ -88,7 +88,7 @@
 				</tr>
 				
 				<tr>
-					<td style="width: 30%;">Product</td>
+					<td style="width: 30%;">Product Qty. Required <font color=#FF0004>(cannot be changed later)</font></td>
 					<td>
 						<table class='table table-hover table-responsive' style="width: 100%;">
 							<?php
