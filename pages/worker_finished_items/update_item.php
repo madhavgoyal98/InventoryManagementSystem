@@ -74,7 +74,7 @@
 
 				<tr>
 					<td style="width: 30%">Quantity</td>
-					<td><input type='number' name='quantity' value='<?php echo($fp->quantity); ?>' class='form-control' maxlength="11" oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' required></td>
+					<td><input type='number' name='quantity' value='<?php echo($fp->quantity); ?>' class='form-control' maxlength="11" min='0' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' required></td>
 				</tr>
 				
 				<tr>

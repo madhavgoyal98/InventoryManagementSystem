@@ -99,7 +99,7 @@
 									
 									echo("<tr>");
 										echo("<td>". $order->fp[$i][0]. "</td>");
-										echo("<td style='border-right: solid 2px;'>". "<input type='number' name='$n' value=$v class='form-control' maxlength='5' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
+										echo("<td style='border-right: solid 2px;'>". "<input type='number' name='$n' value=$v min='0' class='form-control' maxlength='5' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
 																				
 										$i++;
 									
@@ -109,7 +109,7 @@
 											$v = $order->fp[$i][2];
 											
 											echo("<td>". $order->fp[$i][0]. "</td>");
-											echo("<td>". "<input type='number' name='$n' value='$v' class='form-control' maxlength='5' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
+											echo("<td>". "<input type='number' name='$n' value='$v' min='0' class='form-control' maxlength='5' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
 										}
 									echo("</tr>");
 								}

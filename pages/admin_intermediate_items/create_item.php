@@ -113,7 +113,7 @@
 									
 									echo("<tr>");
 										echo("<td>". $row[1]. "</td>");
-										echo("<td style='border-right: solid 2px;'>". "<input type='number' name='rm_$row[0]' value='0' class='form-control' maxlength='4' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
+										echo("<td style='border-right: solid 2px;'>". "<input type='number' name='rm_$row[0]' value='0' min='0' class='form-control' maxlength='4' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
 																				
 										$i++;
 									
@@ -122,7 +122,7 @@
 											$row = $result->fetch_array(MYSQLI_NUM);
 											
 											echo("<td>". $row[1]. "</td>");
-											echo("<td>". "<input type='number' name='rm_$row[0]' value='0' class='form-control' maxlength='4' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
+											echo("<td>". "<input type='number' name='rm_$row[0]' value='0' min='0' class='form-control' maxlength='4' oninput='javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);'>". "</td>");
 										}
 									echo("</tr>");
 								}
